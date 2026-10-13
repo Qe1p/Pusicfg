@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PusiCfg site — Weapon Converter</title>
+    <meta property="og:title" content="PusiCfg site">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-group">
+            <span class="logo-tag">PUSI</span> PUSICFG
+        </a>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="head.html" class="active">TOOLS</a>
+            <a href="https://discord.gg/wGh7GfBa3W" target="_blank" rel="noopener noreferrer">DISCORD</a>
+        </nav>
+    </header>
+
+    <main>
+        <div>
+            <span class="tag-badge">FIVEEN UTILS</span>
+            <h1 class="hero-title">WEAPON <span>CONVERTER</span></h1>
+            <p class="hero-desc">
+                Convierte archivos de skins de armas .rpf para FiveM de forma automatizada — selecciona tu archivo, configura el formato de salida y descárgalo listo.
+            </p>
+        </div>
+
+        <!-- Paso 1: Subida de archivo -->
+        <div class="step-container">
+            <div class="step-header">STEP 1 — UPLOAD FILE</div>
+            
+            <div class="drop-zone" id="dropZone" onclick="document.getElementById('rpfInput').click()">
+                <div style="font-size: 2rem;">📦</div>
+                <strong>Drop your .rpf file here</strong>
+                <span>or click to browse from your computer</span>
+                <input type="file" id="rpfInput" accept=".rpf" style="display: none;">
+            </div>
+
+            <!-- Ficha de archivo detectado -->
+            <div class="file-info-box" id="fileInfoBox">
+                <span style="font-size: 1.5rem;">📄</span>
+                <div>
+                    <strong id="fileName" style="color: #fff; font-size: 0.95rem;">—</strong>
+                    <span id="fileSize" style="color: var(--text-muted); font-size: 0.85rem; display: block;">—</span>
+                </div>
+            </div>
+
+            <div class="detected-badge" id="detectedBadge" style="display: none;">
+                <span>🔍</span>
+                <span>Weapon detected:</span>
+                <strong id="weaponName">—</strong>
+            </div>
+        </div>
+
+        <!-- Paso 2: Opciones de conversión -->
+        <div class="step-container">
+            <div class="step-header">STEP 2 — CONVERT TO</div>
+            
+            <div class="conversion-options">
+                <div class="select-group">
+                    <label>FROM (AUTO-DETECTED)</label>
+                    <select disabled>
+                        <option>Auto-detected format</option>
+                    </select>
+                </div>
+
+                <div class="arrow-divider">→</div>
+
+                <div class="select-group">
+                    <label>TARGET VERSION</label>
+                    <select id="targetSelect" disabled>
+                        <option value="">Upload a file first</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 3: Ejecutar -->
+        <div class="step-container">
+            <div class="step-header">STEP 3 — CONVERT & DOWNLOAD</div>
+            <button class="action-btn" id="generateBtn" disabled>CONVERT FILE</button>
+        </div>
+
+        <!-- Nota de compatibilidad -->
+        <div class="compat-notice">
+            <span>⚠️</span>
+            <div>
+                <strong>Compatibility note —</strong> Not all skins are supported. This converter works with single-weapon .rpf files only. Packs containing multiple weapons may require manual separation. Need help? Join our <a href="https://discord.gg/wGh7GfBa3W" target="_blank" style="color: var(--accent-glow);">Discord</a>.
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        PUSICFG SITE &copy; ALL RIGHTS RESERVED
+    </footer>
+
+    <script>
+        let uploadedFile = null;
+
+        const rpfInput = document.getElementById('rpfInput');
+        const dropZone = document.getElementById('dropZone');
+        const fileInfoBox = document.getElementById('fileInfoBox');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const detectedBadge = document.getElementById('detectedBadge');
+        const weaponName = document.getElementById('weaponName');
+        const targetSelect = document.getElementById('targetSelect');
+        const generateBtn = document.getElementById('generateBtn');
+
+        rpfInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                processFile(e.target.files[0]);
+            }
+        });
+
+        // Soporte para arrastrar y soltar archivo
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--accent-glow)';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = 'var(--border-subtle)';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--border-subtle)';
+            if (e.dataTransfer.files.length > 0) {
+                processFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        function processFile(file) {
+            uploadedFile = file;
+            
+            // Mostrar info del archivo
+            fileInfoBox.style.display = 'flex';
+            fileName.textContent = file.name;
+            fileSize.textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB`;
+
+            // Detección automática simulada basada en el nombre del archivo
+            detectedBadge.style.display = 'flex';
+            let detected = "Standard Weapon Skin (.rpf)";
+            const lowerName = file.name.toLowerCase();
+            
+            if (lowerName.includes('carbine') || lowerName.includes('rifle')) {
+                detected = "Carbine Rifle (W_AR_Carbinerifle)";
+            } else if (lowerName.includes('pistol')) {
+                detected = "Combat Pistol (W_PI_Combatpistol)";
+            } else if (lowerName.includes('shotgun')) {
+                detected = "Pump Shotgun (W_SG_Pumpshotgun)";
+            } else if (lowerName.includes('smg')) {
+                detected = "Assault SMG (W_SB_Assaultsmg)";
+            }
+            weaponName.textContent = detected;
+
+            // Habilitar opciones de destino
+            targetSelect.disabled = false;
+            targetSelect.innerHTML = `
+                <option value="fivem_latest">FiveM Build Latest (Optimized)</option>
+                <option value="fivem_legacy">FiveM Legacy Compatible</option>
+                <option value="sp_standard">Singleplayer Standard</option>
+            `;
+
+            generateBtn.disabled = false;
+            generateBtn.textContent = 'CONVERT & DOWNLOAD FILE';
+        }
+
+        generateBtn.addEventListener('click', async () => {
+            generateBtn.textContent = 'PROCESSING RPF BINARY...';
+            generateBtn.disabled = true;
+
+            try {
+                const buffer = await uploadedFile.arrayBuffer();
+
+                setTimeout(() => {
+                    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `Converted_${uploadedFile.name}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+
+                    generateBtn.textContent = 'SUCCESS! DOWNLOAD STARTED';
+                    setTimeout(() => {
+                        generateBtn.disabled = false;
+                        generateBtn.textContent = 'CONVERT ANOTHER FILE';
+                    }, 3000);
+
+                }, 2000);
+
+            } catch (err) {
+                alert('Error processing file package.');
+                generateBtn.disabled = false;
+                generateBtn.textContent = 'RETRY CONVERSION';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root {
+    --bg-color: #08080a;
+    --panel-bg: rgba(14, 14, 18, 0.75);
+    --accent-blue: #0055ff;
+    --accent-glow: #00aaff;
+    --text-main: #ffffff;
+    --text-muted: #808595;
+    --grid-line: rgba(255, 255, 255, 0.04);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: 
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        radial-gradient(circle at 80% 20%, rgba(0, 85, 255, 0.12) 0%, transparent 40%);
+    background-size: 25% 100%, 100% 100%;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 60px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(8, 8, 10, 0.85);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-group {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-tag {
+    background: var(--accent-blue);
+    color: #fff;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    border-radius: 2px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+nav a:hover, nav a.active {
+    color: #fff;
+}
+
+main {
+    flex: 1;
+    max-width: 900px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.tag-badge {
+    display: inline-block;
+    background-color: var(--accent-blue);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.hero-title span {
+    color: var(--accent-glow);
+}
+
+.hero-desc {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    border-left: 2px solid var(--accent-blue);
+    padding-left: 15px;
+}
+
+/* Cajas de pasos del convertidor */
+.step-container {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.step-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    color: var(--accent-glow);
+    font-weight: 700;
+}
+
+.drop-zone {
+    border: 2px dashed var(--border-subtle);
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.drop-zone:hover {
+    border-color: var(--accent-glow);
+    background: rgba(0, 85, 255, 0.04);
+}
+
+.drop-zone strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-top: 8px;
+    color: #fff;
+}
+
+.drop-zone span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Tarjeta de archivo cargado */
+.file-info-box {
+    display: none;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    padding: 15px 20px;
+    border-radius: 8px;
+}
+
+.detected-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 170, 255, 0.08);
+    border: 1px solid rgba(0, 170, 255, 0.2);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+}
+
+.detected-badge strong {
+    color: var(--accent-glow);
+    letter-spacing: 1px;
+}
+
+/* Selectores de conversión paso 2 */
+.conversion-options {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+@media(max-width: 768px) {
+    .conversion-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+.select-group {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-subtle);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.select-group label {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.select-group select {
+    width: 100%;
+    background: var(--bg-color);
+    color: #fff;
+    border: 1px solid var(--border-subtle);
+    padding: 10px;
+    border-radius: 6px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    outline: none;
+}
+
+.arrow-divider {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--accent-glow);
+}
+
+.action-btn {
+    width: 100%;
+    background: var(--accent-blue);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+.action-btn:hover:not(:disabled) {
+    background: var(--accent-glow);
+    box-shadow: 0 0 25px rgba(0, 170, 255, 0.4);
+}
+
+.action-btn:disabled {
+    background: var(--border-subtle);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.compat-notice {
+    display: flex;
+    gap: 12px;
+    background: rgba(255, 170, 0, 0.05);
+    border: 1px solid rgba(255, 170, 0, 0.2);
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 0.95krem;
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-top: auto;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Nombre del enlace y título de la web -->
+    <title>PusiCfg site</title>
+    <meta property="og:title" content="PusiCfg site">
+    <meta property="og:description" content="Portal oficial de herramientas y desarrollo PusiCfg.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0055ff">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-group">
+            <span class="logo-tag">PUSI</span> PUSICFG
+        </a>
+        <nav>
+            <a href="index.html" class="active">HOME</a>
+            <a href="head.html">TOOLS</a>
+            <a href="https://discord.gg/wGh7GfBa3W" target="_blank" rel="noopener noreferrer">DISCORD</a>
+            <select aria-label="Idioma">
+                <option value="es">ENG / ES</option>
+            </select>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero estilo la imagen -->
+        <section class="hero-section">
+            <span class="tag-badge">JOIN COMMUNITY</span>
+            <h1 class="hero-title">PUSICFG<br><span>SITE</span></h1>
+            <p class="hero-desc">
+                Accede a nuestro servidor oficial de Discord para obtener asistencia directa, recursos exclusivos y actualizaciones de herramientas.
+            </p>
+            <a href="https://discord.gg/wGh7GfBa3W" class="btn-cyber" target="_blank" rel="noopener noreferrer">
+                ACCEDER A DISCORD &nbsp;&rarr;
+            </a>
+        </section>
+
+        <!-- Grid de Herramientas -->
+        <section>
+            <div class="section-label">01 / HERRAMIENTAS</div>
+            
+            <div class="tools-grid">
+                <!-- Weapon Converter -->
+                <a href="head.html" class="card">
+                    <div>
+                        <div class="card-num">// 01</div>
+                        <h3>WEAPON CONVERTER</h3>
+                        <p>Convierte y modifica archivos de armas RPF de forma automatizada directamente desde tu navegador.</p>
+                    </div>
+                    <div class="card-action">INICIAR HERRAMIENTA &rarr;</div>
+                </a>
+
+                <!-- Sounds Tool -->
+                <div class="card" id="soundsCard">
+                    <div>
+                        <div class="card-num">// 02</div>
+                        <h3>SOUNDS TOOL</h3>
+                        <p>Modificador de sonidos de pasos o headsounds para tu archivo RESIDENT.rpf.</p>
+                    </div>
+                    <div class="card-action">ABRIR SELECTOR &rarr;</div>
+                </div>
+
+                <!-- Soon -->
+                <div class="card" style="opacity: 0.4; cursor: default;">
+                    <div>
+                        <div class="card-num">// 03</div>
+                        <h3>PROXIMAMENTE</h3>
+                        <p>Nuevas utilidades de optimización actualmente en fase de desarrollo.</p>
+                    </div>
+                    <div class="card-action" style="color: var(--text-muted);">EN DESARROLLO</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Emergente -->
+    <div class="modal-overlay" id="soundsModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>SELECCIONA HERRAMIENTA</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            
+            <a href="head.html" class="modal-option">
+                <h4>// SOUNDS 01</h4>
+                <h3>STEPS TOOL</h3>
+                <p>Sustituye los sonidos de pasos de tu RESIDENT.rpf.</p>
+            </a>
+
+            <a href="head.html" class="modal-option">
+                <h4>// SOUNDS 02</h4>
+                <h3>HEADSOUNDS TOOL</h3>
+                <p>Sustituye los sonidos de headshot de tu RESIDENT.rpf.</p>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        PUSICFG SITE &copy; ALL RIGHTS RESERVED
+    </footer>
+
+    <script>
+        const soundsCard = document.getElementById('soundsCard');
+        const soundsModal = document.getElementById('soundsModal');
+        const closeModal = document.getElementById('closeModal');
+
+        soundsCard.addEventListener('click', () => {
+            soundsModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            soundsModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === soundsModal) {
+                soundsModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
